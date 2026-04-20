@@ -21,7 +21,6 @@
             --text-secondary: #9aa7b9;
             --border: #1e2a44;
             --error: #e74c3c;
-            --success: #2ecc71;
         }
 
         body {
@@ -145,13 +144,6 @@
             color: var(--error);
         }
 
-        .info-text {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
         .demo-credentials {
             background: rgba(212,175,55,0.1);
             border-radius: 12px;
@@ -217,11 +209,6 @@
                 💡 <strong>Credenciais de demonstração:</strong><br>
                 Usuário: <span>aluno</span> | Senha: <span>1234</span>
             </div>
-
-            <div class="info-text">
-                Ao acessar, você concorda com os termos de uso<br>
-                e política de privacidade do curso.
-            </div>
         </div>
 
         <div class="footer">
@@ -230,12 +217,13 @@
     </div>
 
     <script>
+        const BASE_URL = 'https://lrpluciano-pereira.github.io';
+
         function fazerLogin() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('errorMessage');
             
-            // Validação simples (simulada)
             if (username === '' || password === '') {
                 errorDiv.style.display = 'block';
                 errorDiv.innerHTML = '❌ Por favor, preencha usuário e senha.';
@@ -248,18 +236,12 @@
                 return;
             }
             
-            // Para demonstração, qualquer usuário com senha >=4 caracteres entra
-            // Em uma versão real, isso seria validado no backend
-            
-            // Salvar nome do usuário para exibir no dashboard
             localStorage.setItem('usuario_nome', username);
             localStorage.setItem('usuario_logado', 'true');
             
-            // Redirecionar para a página "Sobre o Curso"
-            window.location.href = 'https://lrpluciano-pereira.github.io/sobre.html';
+            window.location.href = BASE_URL + '/sobre';
         }
         
-        // Permitir pressionar Enter para logar
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 fazerLogin();
