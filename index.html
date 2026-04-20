@@ -11,21 +11,9 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-dark: #0a1628;
-            --bg-card: #0f1a2f;
-            --bg-light: #16213e;
-            --gold: #d4af37;
-            --gold-dark: #b8942e;
-            --text-primary: #ffffff;
-            --text-secondary: #9aa7b9;
-            --border: #1e2a44;
-            --error: #e74c3c;
-        }
-
         body {
             font-family: 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1a3a 100%);
+            background: linear-gradient(135deg, #0a1628 0%, #0d1a3a 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -45,7 +33,7 @@
 
         .logo-icon {
             font-size: 3.5rem;
-            background: var(--gold-dark);
+            background: #b8942e;
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -56,27 +44,26 @@
         }
 
         .logo h1 {
-            color: var(--gold);
+            color: #d4af37;
             font-size: 1.6rem;
             margin-top: 16px;
-            font-weight: 600;
         }
 
         .logo p {
-            color: var(--text-secondary);
+            color: #9aa7b9;
             font-size: 0.85rem;
         }
 
         .login-card {
-            background: var(--bg-card);
+            background: #0f1a2f;
             border-radius: 24px;
             padding: 40px 32px;
-            border: 1px solid var(--border);
+            border: 1px solid #1e2a44;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .login-card h2 {
-            color: var(--gold);
+            color: #d4af37;
             text-align: center;
             margin-bottom: 28px;
             font-size: 1.5rem;
@@ -88,7 +75,7 @@
 
         .input-group label {
             display: block;
-            color: var(--text-secondary);
+            color: #9aa7b9;
             margin-bottom: 8px;
             font-size: 0.85rem;
         }
@@ -96,52 +83,33 @@
         .input-group input {
             width: 100%;
             padding: 14px 16px;
-            background: var(--bg-light);
-            border: 1px solid var(--border);
+            background: #16213e;
+            border: 1px solid #1e2a44;
             border-radius: 12px;
-            color: var(--text-primary);
+            color: #ffffff;
             font-size: 1rem;
-            transition: all 0.2s;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
-        }
-
-        .input-group input::placeholder {
-            color: #4a5a7a;
+            border-color: #d4af37;
         }
 
         .btn-login {
             width: 100%;
             padding: 14px;
-            background: var(--gold);
-            color: var(--bg-dark);
+            background: #d4af37;
+            color: #0a1628;
             border: none;
             border-radius: 40px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s;
             margin-top: 12px;
         }
 
         .btn-login:hover {
             background: #e6c453;
-            transform: scale(1.02);
-        }
-
-        .error-message {
-            background: rgba(231, 76, 60, 0.15);
-            border: 1px solid var(--error);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 16px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--error);
         }
 
         .demo-credentials {
@@ -151,10 +119,11 @@
             margin-top: 20px;
             text-align: center;
             font-size: 0.75rem;
+            color: #9aa7b9;
         }
 
         .demo-credentials span {
-            color: var(--gold);
+            color: #d4af37;
             font-weight: bold;
         }
 
@@ -162,21 +131,7 @@
             text-align: center;
             margin-top: 24px;
             font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 28px 20px;
-            }
-            .logo-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
-            }
-            .logo h1 {
-                font-size: 1.3rem;
-            }
+            color: #9aa7b9;
         }
     </style>
 </head>
@@ -193,7 +148,7 @@
             
             <div class="input-group">
                 <label>📧 E-mail ou matrícula</label>
-                <input type="text" id="username" placeholder="exemplo@aluno.ufabc.edu.br" autocomplete="off">
+                <input type="text" id="username" placeholder="Digite seu usuário">
             </div>
 
             <div class="input-group">
@@ -201,13 +156,11 @@
                 <input type="password" id="password" placeholder="Digite sua senha">
             </div>
 
-            <button class="btn-login" onclick="fazerLogin()">Entrar no Curso</button>
-
-            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <button class="btn-login" onclick="entrar()">Entrar no Curso</button>
 
             <div class="demo-credentials">
-                💡 <strong>Credenciais de demonstração:</strong><br>
-                Usuário: <span>aluno</span> | Senha: <span>1234</span>
+                💡 <strong>Demonstração:</strong><br>
+                Clique em "Entrar" para acessar o curso
             </div>
         </div>
 
@@ -217,36 +170,19 @@
     </div>
 
     <script>
-        const BASE_URL = 'https://lrpluciano-pereira.github.io';
-
-        function fazerLogin() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('errorMessage');
-            
-            if (username === '' || password === '') {
-                errorDiv.style.display = 'block';
-                errorDiv.innerHTML = '❌ Por favor, preencha usuário e senha.';
-                return;
+        function entrar() {
+            // Versão SIMPLES - apenas para demonstração
+            const nome = document.getElementById('username').value;
+            if (nome.trim() === '') {
+                localStorage.setItem('usuario_nome', 'Estudante');
+            } else {
+                localStorage.setItem('usuario_nome', nome);
             }
-            
-            if (password.length < 4) {
-                errorDiv.style.display = 'block';
-                errorDiv.innerHTML = '❌ Senha deve ter no mínimo 4 caracteres.';
-                return;
-            }
-            
-            localStorage.setItem('usuario_nome', username);
             localStorage.setItem('usuario_logado', 'true');
             
-            window.location.href = BASE_URL + '/sobre';
+            // Vai para a página principal (dashboard)
+            window.location.href = 'index.html';
         }
-        
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                fazerLogin();
-            }
-        });
     </script>
 </body>
 </html>
