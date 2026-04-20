@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVA | Ética Aristotélica no Cotidiano Digital</title>
+    <title>Login | Ética Aristotélica no Cotidiano Digital</title>
     <style>
         * {
             margin: 0;
@@ -20,756 +20,251 @@
             --text-primary: #ffffff;
             --text-secondary: #9aa7b9;
             --border: #1e2a44;
+            --error: #e74c3c;
             --success: #2ecc71;
         }
 
         body {
             font-family: 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.5;
-        }
-
-        .navbar {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1a3a 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 420px;
+            width: 100%;
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gold);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-            padding: 8px 0;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--gold);
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .badge-count {
-            background: var(--gold);
-            color: var(--bg-dark);
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 32px 24px;
-            min-height: calc(100vh - 160px);
-        }
-
-        .welcome-header {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            border-radius: 24px;
-            padding: 28px;
+            text-align: center;
             margin-bottom: 32px;
-            color: var(--bg-dark);
         }
 
-        .student-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
+        .logo-icon {
+            font-size: 3.5rem;
+            background: var(--gold-dark);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        .overall-progress {
-            background: rgba(0,0,0,0.2);
-            border-radius: 40px;
-            padding: 6px 16px;
-            font-size: 0.9rem;
-        }
-
-        .progress-bar-large {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            height: 8px;
+        .logo h1 {
+            color: var(--gold);
+            font-size: 1.6rem;
             margin-top: 16px;
-            overflow: hidden;
-        }
-
-        .progress-fill-large {
-            background: var(--bg-dark);
-            height: 100%;
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.5s;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin: 24px 0 32px;
-        }
-
-        .modulo-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .modulo-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-            border-color: var(--gold);
-        }
-
-        .modulo-icon {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-        }
-
-        .modulo-title {
-            font-size: 1.3rem;
             font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .modulo-desc {
+        .logo p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .progress-bar {
-            background: var(--bg-light);
-            border-radius: 10px;
-            height: 6px;
-            overflow: hidden;
-            margin-top: 16px;
-        }
-
-        .progress-fill {
-            background: var(--gold);
-            height: 100%;
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-
-        .progress-text {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 6px;
-            display: block;
-        }
-
-        .badges-section {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 24px;
-            margin: 32px 0;
-            border: 1px solid var(--border);
-        }
-
-        .badges-section h3 {
-            color: var(--gold);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .badges-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .badge-item {
-            background: var(--bg-light);
-            border-radius: 40px;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             font-size: 0.85rem;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 40px 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .login-card h2 {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
             transition: all 0.2s;
         }
 
-        .badge-item.earned {
-            background: var(--gold-dark);
-            color: var(--bg-dark);
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
         }
 
-        .badge-item.locked {
-            opacity: 0.5;
+        .input-group input::placeholder {
+            color: #4a5a7a;
         }
 
-        .chart-container {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 24px;
-            margin: 32px 0;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .chart-container h3 {
-            color: var(--gold);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        canvas {
-            background: var(--bg-light);
-            border-radius: 16px;
-            padding: 16px;
+        .btn-login {
             width: 100%;
-            max-width: 500px;
-            height: auto;
-        }
-
-        .certificate-section {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 24px;
-            margin: 32px 0;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .certificate-section h3 {
-            color: var(--gold);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-certificado {
-            background: var(--success);
+            padding: 14px;
+            background: var(--gold);
             color: var(--bg-dark);
             border: none;
-            padding: 14px 28px;
             border-radius: 40px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 16px;
-            transition: transform 0.2s;
-            font-size: 1rem;
-        }
-
-        .btn-certificado:hover:not(:disabled) {
-            transform: scale(1.02);
-            background: #27ae60;
-        }
-
-        .btn-certificado:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: #7f8c8d;
-        }
-
-        .certificate-status {
-            font-size: 0.85rem;
+            transition: all 0.2s;
             margin-top: 12px;
+        }
+
+        .btn-login:hover {
+            background: #e6c453;
+            transform: scale(1.02);
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid var(--error);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--error);
+        }
+
+        .info-text {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.75rem;
             color: var(--text-secondary);
         }
 
-        .next-activity {
-            background: var(--bg-card);
-            border-left: 4px solid var(--gold);
-            padding: 16px 20px;
-            border-radius: 16px;
+        .demo-credentials {
+            background: rgba(212,175,55,0.1);
+            border-radius: 12px;
+            padding: 12px;
             margin-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        .demo-credentials span {
+            color: var(--gold);
+            font-weight: bold;
         }
 
         .footer {
-            background: var(--bg-card);
             text-align: center;
-            padding: 24px;
-            border-top: 1px solid var(--border);
+            margin-top: 24px;
+            font-size: 0.7rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
         }
 
-        h2 {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin: 24px 0 16px 0;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                text-align: center;
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 20px;
             }
-            .nav-links {
-                justify-content: center;
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
             }
-            .student-name {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .badges-grid {
-                gap: 8px;
-            }
-            .badge-item {
-                font-size: 0.7rem;
-                padding: 4px 12px;
+            .logo h1 {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="https://lrpluciano-pereira.github.io/index/" class="logo">
-                <span>⚖️ Ética Digital</span>
-            </a>
-            <div class="nav-links">
-                <a href="https://lrpluciano-pereira.github.io/index/" class="active">🏠 Início</a>
-                <a href="https://lrpluciano-pereira.github.io/teoricomodulo1/">📚 Módulo 1</a>
-                <a href="https://lrpluciano-pereira.github.io/teoricomodulo2/">📖 Módulo 2</a>
-                <a href="https://lrpluciano-pereira.github.io/teoricomodulo3/">🍃 Módulo 3</a>
-                <a href="https://lrpluciano-pereira.github.io/simulador/">🎮 Simulador</a>
-                <a href="https://lrpluciano-pereira.github.io/forum/">💬 Atividades</a>
-            </div>
-            <div class="user-info">
-                <span class="badge-count" id="badgeCount">0 🏆</span>
-                <span>👤 Aluno</span>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container">
-        <div class="welcome-header">
-            <div class="student-name">
-                <span>Olá, estudante! 👋</span>
-                <span class="overall-progress" id="overallProgressText">Progresso geral: 0%</span>
-            </div>
-            <p style="margin-top: 8px;">Bem-vindo ao AVA de Ética Aristotélica no Cotidiano Digital. Siga o roteiro abaixo para completar seu curso!</p>
-            <div class="progress-bar-large">
-                <div class="progress-fill-large" id="overallProgressBar"></div>
-            </div>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">⚖️</div>
+            <h1>Ética Digital</h1>
+            <p>Universidade Federal do ABC</p>
         </div>
 
-        <h2>📌 Roteiro de Aprendizagem</h2>
-        <div class="dashboard-grid">
-            <!-- MÓDULO TEÓRICO (agrupado) -->
-            <div class="modulo-card" onclick="window.location.href='https://lrpluciano-pereira.github.io/teoricomodulo1/'">
-                <div class="modulo-icon">📚</div>
-                <div class="modulo-title">
-                    Módulo Teórico
-                    <span id="badgeTeorico" style="font-size:0.8rem;">🔒</span>
-                </div>
-                <div class="modulo-desc">
-                    <strong>🎯 3 módulos para estudar:</strong><br>
-                    • <strong>Módulo 1:</strong> Fundamentos da Ética Antiga (Sócrates, Platão)<br>
-                    • <strong>Módulo 2:</strong> Aristóteles e o Justo Meio<br>
-                    • <strong>Módulo 3:</strong> Outras Perspectivas (Epicuro, Hobbes, Rousseau)<br>
-                    <strong>📹 Conteúdo:</strong> 3 videoaulas + textos filosóficos<br>
-                    <strong>⏱️ Duração:</strong> ~105 minutos
-                </div>
-                <div class="progress-bar"><div class="progress-fill" id="progressTeorico"></div></div>
-                <span class="progress-text" id="progressTextTeorico">0% concluído</span>
+        <div class="login-card">
+            <h2>Acesso ao Curso</h2>
+            
+            <div class="input-group">
+                <label>📧 E-mail ou matrícula</label>
+                <input type="text" id="username" placeholder="exemplo@aluno.ufabc.edu.br" autocomplete="off">
             </div>
 
-            <!-- SIMULADOR -->
-            <div class="modulo-card" onclick="window.location.href='https://lrpluciano-pereira.github.io/simulador/'">
-                <div class="modulo-icon">🎮</div>
-                <div class="modulo-title">
-                    Simulador Interativo
-                    <span id="badgeSimulador" style="font-size:0.8rem;">🔒</span>
-                </div>
-                <div class="modulo-desc">
-                    <strong>🎯 Objetivo:</strong> Aplicar o Justo Meio em dilemas digitais.<br>
-                    <strong>🎮 Atividade:</strong> Simulador com 6 cenários<br>
-                    <strong>⏱️ Duração:</strong> ~30 minutos
-                </div>
-                <div class="progress-bar"><div class="progress-fill" id="progressSimulador"></div></div>
-                <span class="progress-text" id="progressTextSimulador">Não iniciado</span>
+            <div class="input-group">
+                <label>🔒 Senha</label>
+                <input type="password" id="password" placeholder="Digite sua senha">
             </div>
 
-            <!-- ATIVIDADES E FÓRUM -->
-            <div class="modulo-card" onclick="window.location.href='https://lrpluciano-pereira.github.io/forum/'">
-                <div class="modulo-icon">💬</div>
-                <div class="modulo-title">
-                    Atividades e Fórum
-                    <span id="badgeForum" style="font-size:0.8rem;">🔒</span>
-                </div>
-                <div class="modulo-desc">
-                    <strong>🎯 Objetivo:</strong> Refletir criticamente e compartilhar ideias.<br>
-                    <strong>📝 Atividade:</strong> 4 questões + fórum<br>
-                    <strong>⏱️ Duração:</strong> ~45 minutos
-                </div>
-                <div class="progress-bar"><div class="progress-fill" id="progressAtividades"></div></div>
-                <span class="progress-text" id="progressTextAtividades">0/4 atividades</span>
+            <button class="btn-login" onclick="fazerLogin()">Entrar no Curso</button>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <div class="demo-credentials">
+                💡 <strong>Credenciais de demonstração:</strong><br>
+                Usuário: <span>aluno</span> | Senha: <span>1234</span>
+            </div>
+
+            <div class="info-text">
+                Ao acessar, você concorda com os termos de uso<br>
+                e política de privacidade do curso.
             </div>
         </div>
 
-        <!-- BADGES -->
-        <div class="badges-section">
-            <h3>🏆 Suas Conquistas</h3>
-            <div class="badges-grid" id="badgesGrid">
-                <div class="badge-item" id="badge1">🏛️ Filósofo Iniciante</div>
-                <div class="badge-item" id="badge2">⚖️ Justo Meio</div>
-                <div class="badge-item" id="badge3">🌿 Eudaimon</div>
-                <div class="badge-item" id="badge4">💬 Mestre do Diálogo</div>
-                <div class="badge-item" id="badge5">🎓 Sábio Prudente</div>
-            </div>
+        <div class="footer">
+            <p>Especialização em Ciência e Tecnologia | Licença Creative Commons BY-NC-SA</p>
         </div>
-
-        <!-- GRÁFICO -->
-        <div class="chart-container">
-            <h3>📈 Sua Evolução</h3>
-            <canvas id="progressChart" width="500" height="200" style="width:100%; max-width:500px; height:auto; background: var(--bg-light); border-radius: 16px;"></canvas>
-            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px;">Progresso acumulado ao longo das sessões</p>
-        </div>
-
-        <!-- CERTIFICADO -->
-        <div class="certificate-section">
-            <h3>🎓 Certificado de Conclusão</h3>
-            <p>Ao completar todos os módulos com 100% de aproveitamento, você poderá gerar seu certificado.</p>
-            <button class="btn-certificado" id="btnCertificado" onclick="gerarCertificado()" disabled>🔒 Gerar Certificado</button>
-            <div class="certificate-status" id="certificateStatus">Complete todos os módulos para liberar o certificado</div>
-        </div>
-
-        <div class="next-activity" id="nextActivity">
-            <strong>📢 Próximo passo:</strong> Comece pelo <strong>Módulo 1 - Fundamentos da Ética Antiga</strong>!
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>Universidade Federal do ABC | Especialização em Ciência e Tecnologia</p>
-        <p>Licença Creative Commons BY-NC-SA | Luciano Rodrigues Pereira</p>
-    </footer>
+    </div>
 
     <script>
-        function desenharGrafico() {
-            const historico = JSON.parse(localStorage.getItem('historico_progresso') || '[]');
-            const canvas = document.getElementById('progressChart');
-            if (!canvas) return;
+        function fazerLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('errorMessage');
             
-            const container = canvas.parentElement;
-            const width = Math.min(container.clientWidth - 32, 500);
-            canvas.width = width;
-            canvas.height = 200;
-            
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#16213e';
-            ctx.fillRect(0, 0, width, 200);
-            
-            if (historico.length === 0) {
-                ctx.fillStyle = '#9aa7b9';
-                ctx.font = '12px "Segoe UI"';
-                ctx.textAlign = 'center';
-                ctx.fillText('Complete mais atividades para ver seu gráfico de evolução', width/2, 100);
+            // Validação simples (simulada)
+            if (username === '' || password === '') {
+                errorDiv.style.display = 'block';
+                errorDiv.innerHTML = '❌ Por favor, preencha usuário e senha.';
                 return;
             }
             
-            const pontos = historico.slice(-10);
-            const passoX = width / (pontos.length - 1 || 1);
-            
-            ctx.strokeStyle = '#2a3a5a';
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i <= 4; i++) {
-                const y = 200 - (i * 50);
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(width, y);
-                ctx.stroke();
-                ctx.fillStyle = '#6a7a9a';
-                ctx.font = '9px "Segoe UI"';
-                ctx.fillText(`${i * 25}%`, 5, y - 2);
+            if (password.length < 4) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerHTML = '❌ Senha deve ter no mínimo 4 caracteres.';
+                return;
             }
             
-            ctx.beginPath();
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 2;
+            // Para demonstração, qualquer usuário com senha >=4 caracteres entra
+            // Em uma versão real, isso seria validado no backend
             
-            for (let i = 0; i < pontos.length; i++) {
-                const x = i * passoX;
-                const y = 200 - (pontos[i].progresso / 100) * 180;
-                
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-                
-                ctx.fillStyle = '#d4af37';
-                ctx.beginPath();
-                ctx.arc(x, y, 4, 0, 2 * Math.PI);
-                ctx.fill();
-                
-                ctx.fillStyle = '#ffffff';
-                ctx.font = '9px "Segoe UI"';
-                ctx.textAlign = 'center';
-                ctx.fillText(`${pontos[i].progresso}%`, x, y - 8);
-                
-                ctx.fillStyle = '#9aa7b9';
-                ctx.font = '8px "Segoe UI"';
-                const dataAbreviada = pontos[i].data.substring(5);
-                ctx.fillText(dataAbreviada, x, 195);
-            }
-            ctx.stroke();
-        }
-
-        function salvarProgressoHistorico(percentual) {
-            let historico = JSON.parse(localStorage.getItem('historico_progresso') || '[]');
-            const hoje = new Date().toLocaleDateString('pt-BR');
-            const ultimo = historico[historico.length - 1];
+            // Salvar nome do usuário para exibir no dashboard
+            localStorage.setItem('usuario_nome', username);
+            localStorage.setItem('usuario_logado', 'true');
             
-            if (!ultimo || ultimo.data !== hoje) {
-                historico.push({ data: hoje, progresso: percentual });
-                localStorage.setItem('historico_progresso', JSON.stringify(historico.slice(-30)));
-            } else if (ultimo.progresso !== percentual) {
-                ultimo.progresso = percentual;
-                localStorage.setItem('historico_progresso', JSON.stringify(historico));
-            }
-            desenharGrafico();
-        }
-
-        function atualizarDashboard() {
-            const videosAssistidos = JSON.parse(localStorage.getItem('videos_assistidos') || '[]');
-            const totalVideos = 3;
-            const progressoTeorico = Math.min(100, Math.round((videosAssistidos.length / totalVideos) * 100));
-            
-            const progressTeoricoFill = document.getElementById('progressTeorico');
-            const progressTeoricoText = document.getElementById('progressTextTeorico');
-            if (progressTeoricoFill) {
-                progressTeoricoFill.style.width = progressoTeorico + '%';
-                progressTeoricoText.innerText = progressoTeorico + '% concluído';
-            }
-            
-            const badgeFilosofo = document.getElementById('badge1');
-            const badgeTeoricoIcon = document.getElementById('badgeTeorico');
-            if (videosAssistidos.length >= totalVideos) {
-                badgeFilosofo.classList.add('earned');
-                badgeFilosofo.classList.remove('locked');
-                badgeFilosofo.innerHTML = '🏛️ Filósofo Iniciante ✓';
-                if (badgeTeoricoIcon) badgeTeoricoIcon.innerHTML = '✓';
-            } else {
-                badgeFilosofo.classList.remove('earned');
-                badgeFilosofo.classList.add('locked');
-                badgeFilosofo.innerHTML = '🔒 Filósofo Iniciante';
-                if (badgeTeoricoIcon) badgeTeoricoIcon.innerHTML = '🔒';
-            }
-            
-            const simulacoes = JSON.parse(localStorage.getItem('simulacoes_realizadas') || '[]');
-            const totalJustoMeio = simulacoes.filter(s => s.decisao === 'justoMeio').length;
-            
-            const progressSimuladorFill = document.getElementById('progressSimulador');
-            const progressSimuladorText = document.getElementById('progressTextSimulador');
-            if (progressSimuladorFill && simulacoes.length > 0) {
-                progressSimuladorFill.style.width = '100%';
-                progressSimuladorText.innerHTML = `${simulacoes.length} cenário(s) | ${totalJustoMeio} escolhas equilibradas`;
-            } else if (progressSimuladorText) {
-                progressSimuladorText.innerHTML = 'Não iniciado';
-            }
-            
-            const badgeJustoMeio = document.getElementById('badge2');
-            const badgeSimuladorIcon = document.getElementById('badgeSimulador');
-            if (totalJustoMeio >= 1) {
-                badgeJustoMeio.classList.add('earned');
-                badgeJustoMeio.classList.remove('locked');
-                badgeJustoMeio.innerHTML = '⚖️ Justo Meio ✓';
-                if (badgeSimuladorIcon) badgeSimuladorIcon.innerHTML = '✓';
-            } else if (simulacoes.length > 0) {
-                badgeJustoMeio.classList.remove('earned');
-                badgeJustoMeio.classList.add('locked');
-                badgeJustoMeio.innerHTML = '🔒 Justo Meio (faça uma escolha equilibrada)';
-            } else {
-                badgeJustoMeio.classList.remove('earned');
-                badgeJustoMeio.classList.add('locked');
-                badgeJustoMeio.innerHTML = '🔒 Justo Meio';
-            }
-            
-            const badgeSabio = document.getElementById('badge5');
-            if (totalJustoMeio >= 3) {
-                badgeSabio.classList.add('earned');
-                badgeSabio.classList.remove('locked');
-                badgeSabio.innerHTML = '🎓 Sábio Prudente ✓';
-            } else {
-                badgeSabio.classList.remove('earned');
-                badgeSabio.classList.add('locked');
-                badgeSabio.innerHTML = totalJustoMeio > 0 ? `🔒 Sábio Prudente (faltam ${3 - totalJustoMeio} escolhas equilibradas)` : '🔒 Sábio Prudente';
-            }
-            
-            let atividadesConcluidas = 0;
-            for(let i = 1; i <= 4; i++) {
-                const resposta = localStorage.getItem(`resposta_atividade_${i}`);
-                if(resposta && resposta.trim().length > 0) atividadesConcluidas++;
-            }
-            const progressAtividadesFill = document.getElementById('progressAtividades');
-            const progressAtividadesText = document.getElementById('progressTextAtividades');
-            if (progressAtividadesFill) {
-                progressAtividadesFill.style.width = (atividadesConcluidas / 4) * 100 + '%';
-                progressAtividadesText.innerHTML = `${atividadesConcluidas}/4 atividades`;
-            }
-            
-            const badgeEudaimon = document.getElementById('badge3');
-            const badgeForumIcon = document.getElementById('badgeForum');
-            if (atividadesConcluidas >= 4) {
-                badgeEudaimon.classList.add('earned');
-                badgeEudaimon.classList.remove('locked');
-                badgeEudaimon.innerHTML = '🌿 Eudaimon ✓';
-                if (badgeForumIcon) badgeForumIcon.innerHTML = '✓';
-            } else {
-                badgeEudaimon.classList.remove('earned');
-                badgeEudaimon.classList.add('locked');
-                badgeEudaimon.innerHTML = `🔒 Eudaimon (${atividadesConcluidas}/4 atividades)`;
-                if (badgeForumIcon) badgeForumIcon.innerHTML = '🔒';
-            }
-            
-            const forumPosts = JSON.parse(localStorage.getItem('forum_posts') || '[]');
-            const badgeDialogo = document.getElementById('badge4');
-            if (forumPosts.length >= 3) {
-                badgeDialogo.classList.add('earned');
-                badgeDialogo.classList.remove('locked');
-                badgeDialogo.innerHTML = '💬 Mestre do Diálogo ✓';
-            } else {
-                badgeDialogo.classList.remove('earned');
-                badgeDialogo.classList.add('locked');
-                badgeDialogo.innerHTML = `🔒 Mestre do Diálogo (${forumPosts.length}/3 posts)`;
-            }
-            
-            let totalProgresso = 0;
-            let totalItens = 0;
-            totalProgresso += videosAssistidos.length;
-            totalItens += totalVideos;
-            if (simulacoes.length > 0) totalProgresso += 1;
-            totalItens += 1;
-            totalProgresso += atividadesConcluidas;
-            totalItens += 4;
-            if (forumPosts.length >= 3) totalProgresso += 1;
-            totalItens += 1;
-            
-            const percentualGeral = Math.min(100, Math.round((totalProgresso / totalItens) * 100));
-            const overallBar = document.getElementById('overallProgressBar');
-            const overallText = document.getElementById('overallProgressText');
-            if (overallBar) overallBar.style.width = percentualGeral + '%';
-            if (overallText) overallText.innerHTML = `Progresso geral: ${percentualGeral}%`;
-            
-            const badgeCountSpan = document.getElementById('badgeCount');
-            const earnedBadges = document.querySelectorAll('.badge-item.earned').length;
-            if (badgeCountSpan) badgeCountSpan.innerHTML = `${earnedBadges} 🏆`;
-            
-            salvarProgressoHistorico(percentualGeral);
-            
-            const btnCertificado = document.getElementById('btnCertificado');
-            const certificateStatus = document.getElementById('certificateStatus');
-            if (percentualGeral >= 100) {
-                btnCertificado.disabled = false;
-                btnCertificado.innerHTML = '🎓 Gerar Certificado de Conclusão';
-                btnCertificado.style.background = '#2ecc71';
-                certificateStatus.innerHTML = '✅ Parabéns! Você completou 100% do curso. Clique no botão acima para gerar seu certificado!';
-                certificateStatus.style.color = '#2ecc71';
-            } else {
-                btnCertificado.disabled = true;
-                btnCertificado.innerHTML = '🔒 Gerar Certificado';
-                btnCertificado.style.background = '#7f8c8d';
-                certificateStatus.innerHTML = `📊 Complete todos os módulos para liberar o certificado. Progresso atual: ${percentualGeral}%`;
-                certificateStatus.style.color = '#9aa7b9';
-            }
-            
-            const nextActivityDiv = document.getElementById('nextActivity');
-            if (videosAssistidos.length < totalVideos) {
-                nextActivityDiv.innerHTML = '<strong>📢 Próximo passo:</strong> 🎬 Comece pelo <strong>Módulo 1 - Fundamentos da Ética Antiga</strong>!';
-            } else if (simulacoes.length === 0) {
-                nextActivityDiv.innerHTML = '<strong>📢 Próximo passo:</strong> 🎮 Pratique no <strong>Simulador Interativo</strong>!';
-            } else if (atividadesConcluidas < 4) {
-                nextActivityDiv.innerHTML = '<strong>📢 Próximo passo:</strong> 💬 Responda às atividades e participe do <strong>Fórum</strong>!';
-            } else if (forumPosts.length < 3) {
-                nextActivityDiv.innerHTML = '<strong>📢 Próximo passo:</strong> 💬 Publique mais posts no <strong>Fórum</strong> para completar seu certificado!';
-            } else {
-                nextActivityDiv.innerHTML = '<strong>🎉 Parabéns!</strong> Você completou todos os módulos! Clique em "Gerar Certificado" acima.';
-            }
+            // Redirecionar para a página "Sobre o Curso"
+            window.location.href = 'https://lrpluciano-pereira.github.io/sobre.html';
         }
         
-        function gerarCertificado() {
-            const videosAssistidos = JSON.parse(localStorage.getItem('videos_assistidos') || '[]');
-            const simulacoes = JSON.parse(localStorage.getItem('simulacoes_realizadas') || '[]');
-            let atividadesConcluidas = 0;
-            for(let i = 1; i <= 4; i++) {
-                const resposta = localStorage.getItem(`resposta_atividade_${i}`);
-                if(resposta && resposta.trim().length > 0) atividadesConcluidas++;
+        // Permitir pressionar Enter para logar
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fazerLogin();
             }
-            const forumPosts = JSON.parse(localStorage.getItem('forum_posts') || '[]');
-            
-            let totalProgresso = 0;
-            let totalItens = 0;
-            totalProgresso += videosAssistidos.length;
-            totalItens += 3;
-            if (simulacoes.length > 0) totalProgresso += 1;
-            totalItens += 1;
-            totalProgresso += atividadesConcluidas;
-            totalItens += 4;
-            if (forumPosts.length >= 3) totalProgresso += 1;
-            totalItens += 1;
-            
-            const percentualGeral = Math.min(100, Math.round((totalProgresso / totalItens) * 100));
-            
-            if (percentualGeral >= 100) {
-                const nome = prompt("Digite seu nome completo para o certificado:");
-                if (nome && nome.trim().length > 0) {
-                    localStorage.setItem('certificado_nome', nome.trim());
-                    localStorage.setItem('certificado_data', new Date().toLocaleDateString('pt-BR'));
-                    window.open('https://lrpluciano-pereira.github.io/certificado.html', '_blank');
-                } else if (nome === null) {
-                    // cancelado
-                } else {
-                    alert('Por favor, digite um nome válido.');
-                }
-            } else {
-                alert(`Você completou ${percentualGeral}% do curso. Complete 100% para gerar o certificado!`);
-            }
-        }
-        
-        atualizarDashboard();
-        setInterval(atualizarDashboard, 2000);
+        });
     </script>
 </body>
 </html>
