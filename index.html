@@ -171,7 +171,6 @@
 
     <script>
         function entrar() {
-            // Salva o nome do usuário
             const nome = document.getElementById('username').value;
             if (nome.trim() === '') {
                 localStorage.setItem('usuario_nome', 'Estudante');
@@ -180,8 +179,8 @@
             }
             localStorage.setItem('usuario_logado', 'true');
             
-            // 👇 VAI PARA index.html NA RAIZ
-            window.location.href = 'lrpluciano-pereira.github.io/index/';
+            // ✅ Agora vai para a PASTA index/
+            window.location.href = '/index/';
         }
     </script>
 </body>
